@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example Project Report</title>
+</head>
+<body>
+    <header>
+        <h1>Video Game Sales and Metacritic Scores</h1>
+        <nav>Menu</nav>
+
+    </header>
+    <main>
+        <section>
+            <h2>1. Introduction</h2></section>
+        <p> According to PEW Research<sup>
+            <ahttps://www.pewresearch.org/internet/2016/12/19/online-reviews/>
+        
+        1</a></sup>, 96% of adults between 18-29 occasionally consult reviews before making a
+            purchase. But does this mean that higher ratings result in more product sales? Specifically, what do
+            higher ratings indicate for video game sales? Maybe higher ratings lead to more game sales. But could
+            some more obscure games with a dedicated group of followers receive higher ratings than popular
+            games with significant sales volume? I am also curious whether there has been an increase in the
+            production of games in recent years and, if so, what affect this increase has on the quality of games
+            based on review scores. Is it possible that an increase in the number of games results in review scores
+            decreasing with the oversaturation of video game releases?</p>
+            
+        <p>In this project, I plan to use Metacritic's user and critic review scores to see if there is a correlation
+            between the scores of a game and its overall sales. I will be joining the review data with sales data
+            obtained from VGChartz. </p>
+
+        <section><h2>2. Data</h2></section>
+        <h3>2.1 Review Scores</h3>
+        <p>I collected data from Metacritic, which contained user (user score) and critic (meta score) review scores
+            for each game.</p>
+            <p>Metacritic's data was found on 186 different web pages. I wrote a web crawling script to collect all data
+            across these 186 pages. I collected the game title, summary, platform, user score, meta score, and
+            release date for 18,526 games. Some of the results were the same game that was released on different
+            platforms, which is essential to consider when I begin merging the data. I created a data frame which is
+            contained in the Metacritic.csv file in the project folder. The web crawling script that I wrote is
+            contained in the metacritic.R file in the project folder.</p>
+           <p> The data didn’t need much cleaning; however, to make the platform match with the VGChartz data, I
+            created a dictionary to convert Metacritic’s platform data to match VGChartz. This cleaning was done in
+            the file combining_vgs.R.</p>
+            <p>This project uses two primary sources of data: Metacritic's2 game critic and game player review scores
+                of different games and VGChartz3 data about video game sales</p>
+        <h3>2.2 Video Game Sales</h3>
+        <p>The website VGChartz provides sales data about the number of units of each game/platform
+            combination sold.</p>
+        <p>The information was contained in 1,249 web pages. Due to the extensive nature of the data, I decided to
+            break the web crawling results into six different CSV files (VGChartz_0 – 5.csv), all contained in the
+            project folder. The web crawling script is contained in the vgchartz.R file in the project folder.
+            I collected the game, platform, release date, publisher, and sales data from PAL, Japan, and North
+            America as well as total game sales for 62,398 games. Like the Metacritic data, some of these games
+            were released on multiple platforms, which count as a unique observation in the data. Another
+            interesting thing to note is that series were counted in this data frame alongside their individual
+            counterparts. For example, Super Mario is counted as a series, but each entry in the series is also
+            contained in the dataset. This was handled in the cleaning of the data.</p>
+        <p>In cleaning the data, I merged all six VGChartz .csv files into one complete file using row bind to build a
+            complete data frame. I also removed unnecessary columns, trimmed the white space on the title, and
+            returned only the distinct values of the dataset. When I read the CSV into the script, I created NA values
+            where data was missing. I also removed the game series by filtering them out during data cleaning. This
+            cleaning was done in the file combining_vgs.R.</p>
+            
+            <table>
+                <thead>
+                  <tr>
+                    <th>Column</th>
+                    <th>Type</th>
+                    <th>Source</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>game_title</td>
+                    <td>Text</td>
+                    <td>both</td>
+                    <td>Title of game</td>
+                  </tr>
+                  <tr>
+                    <td>platform</td>
+                    <td>Text</td>
+                    <td>both</td>
+                    <td>Abbreviation of the video game console used to play the game</td>
+                  </tr>
+                  <tr>
+                    <td>publisher</td>
+                    <td>Text</td>
+                    <td>VGChartz</td>
+                    <td>The publisher of the video game</td>
+                  </tr>
+                  <tr>
+                    <td>na_sales</td>
+                    <td>Numeric</td>
+                    <td>VGChartz</td>
+                    <td>The number of units sold in North America</td>
+                  </tr>
+                  <tr>
+                    <td>total_sales</td>
+                    <td>Numeric</td>
+                    <td>VGChartz</td>
+                    <td>The total number of units sold worldwide</td>
+                  </tr>
+          
+                  <tr>
+                    <td>summary</td>
+                    <td>Text</td>
+                    <td>Metacritic</td>
+                    <td>A description of the video game</td>
+                  </tr>
+          
+                  <tr>
+                    <td>release_date</td>
+                    <td>Date</td>
+                    <td>both</td>
+                    <td>The month and year that the game was released</td>
+                  </tr>
+          
+                  <tr>
+                    <td>meta_score</td>
+                    <td>Numeric</td>
+                    <td>Metacritic</td>
+                    <td>The review score as decided on by game critics</td>
+                  </tr>
+                  <tr>
+                    <td>user_score</td>
+                    <td>Numeric</td>
+                    <td>Metacritic</td>
+                    <td>The review score as decided on by the users of Metacritic</td>
+                  </tr>
+                </tbody>
+              </table>
+
+        <section><h2>3. Analysis</h2></section>
+
+        <section><h2>4. Conclusion</h2></section>
+    </main>
+
+    <footer> footer text </footer>
+
+</body>
+</html>
